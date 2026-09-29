@@ -1,0 +1,36 @@
+{
+  "name": "wash-day",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.13.0",
+    "clsx": "^2.1.1",
+    "formik": "^2.4.9",
+    "framer-motion": "^13.4.5",
+    "next": "16.3.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-hot-toast": "^2.6.1",
+    "react-icons": "^5.7.0",
+    "react-redux": "^9.3.0",
+    "redux-persist": "^6.0.0",
+    "resend": "^6.30.0",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.7",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

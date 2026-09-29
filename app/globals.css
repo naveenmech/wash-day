@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #2a2a2a;
+  --color-bg: #ffffff;
+  --color-muted: #f5f5f5;
+  --color-accent: #e53935;
+  --color-accent-dark: #c62828;
+  --color-gold: #f4b400;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-bg: var(--color-bg);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-gold: var(--color-gold);
+  --font-display: var(--font-bebas), sans-serif;
+  --font-body: var(--font-dmsans), sans-serif;
+
+  --animate-fade-up: fade-up 0.6s ease-out both;
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
