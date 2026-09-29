@@ -1,6 +1,6 @@
 import type { CartItem } from "@/types";
 
-export const STORE_WHATSAPP_NUMBER = "919585558007";
+export const STORE_WHATSAPP_NUMBER = "918606171401";
 
 export function buildWhatsAppMessage(params: {
   name?: string;

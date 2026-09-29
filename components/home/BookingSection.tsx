@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import QuantityStepper from "@/components/cart/QuantityStepper";
+import { notifyError, notifyWarning } from "@/lib/toast";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { selectCartItems, selectCartTotal, addService, incrementQty, decrementQty, clearCart } from "@/store/slices/cartSlice";
+import { selectCartItems, selectCartTotal, addService, incrementQty, decrementQty } from "@/store/slices/cartSlice";
 import { services } from "@/data/services";
 import { bookingSchema } from "@/lib/validation";
 import { buildWhatsAppLink, buildWhatsAppMessage } from "@/lib/whatsapp";
@@ -72,26 +72,25 @@ export default function BookingSection() {
           <Formik
             initialValues={initialValues}
             validationSchema={bookingSchema}
-            onSubmit={async (values, { resetForm }) => {
+            onSubmit={async (values) => {
               if (cartItems.length === 0) {
-                toast.error("Select at least one service");
+                notifyError("Select at least one service");
                 return;
               }
               setSubmitting(true);
               try {
-                const res = await fetch("/api/booking", {
+                await fetch("/api/booking", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ ...values, items: cartItems }),
                 });
-                if (!res.ok) throw new Error("Request failed");
-                toast.success("Pickup scheduled! We'll confirm via WhatsApp shortly.");
-                resetForm();
-                dispatch(clearCart());
               } catch {
-                toast.error("Something went wrong. Please try WhatsApp instead.");
+                // Online booking isn't live yet — WhatsApp is the real confirmation path for now.
               } finally {
                 setSubmitting(false);
+                notifyWarning(
+                  "Online booking is under construction — tap “Book via WhatsApp” below to confirm your pickup instantly."
+                );
               }
             }}
           >

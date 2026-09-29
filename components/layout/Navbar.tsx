@@ -76,7 +76,7 @@ export default function Navbar() {
           </div>
         </div>
       </header>
-      {isMobileMenuOpen && <MobileMenu links={NAV_LINKS} />}
+      <MobileMenu isOpen={isMobileMenuOpen} links={NAV_LINKS} />
     </>
   );
 }

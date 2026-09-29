@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
-import toast from "react-hot-toast";
+import { notifySuccess } from "@/lib/toast";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { closeServiceModal, openCart } from "@/store/slices/uiSlice";
 import { addService } from "@/store/slices/cartSlice";
@@ -16,12 +16,14 @@ export default function ServiceModal() {
   const isOpen = useAppSelector((state) => state.ui.isServiceModalOpen);
   const serviceId = useAppSelector((state) => state.ui.selectedServiceId);
   const [qty, setQty] = useState(1);
+  const [wasOpen, setWasOpen] = useState(false);
 
   const service = serviceId ? getServiceById(serviceId) : undefined;
 
-  useEffect(() => {
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
     if (isOpen) setQty(1);
-  }, [isOpen, serviceId]);
+  }
 
   if (!service) return null;
 
@@ -30,9 +32,7 @@ export default function ServiceModal() {
   const handleAddToCart = () => {
     dispatch(addService({ serviceId: service.id, quantity: qty }));
     close();
-    toast.success(`${service.name} added to cart`, {
-      icon: "🧺",
-    });
+    notifySuccess(`${service.name} added to cart`, { icon: "🧺" });
     dispatch(openCart());
   };
 
@@ -61,7 +61,7 @@ export default function ServiceModal() {
               exit={{ y: 40, opacity: 0, scale: 0.98 }}
               transition={{ type: "tween", duration: 0.25 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full md:max-w-md bg-white rounded-t-3xl md:rounded-3xl overflow-hidden"
+              className="w-full md:max-w-md max-h-[90vh] overflow-y-auto bg-white rounded-t-3xl md:rounded-3xl"
             >
               <div className="relative bg-muted px-6 pt-8 pb-6 text-center">
                 <button

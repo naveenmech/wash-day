@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import toast from "react-hot-toast";
+import { notifySuccess, notifyError } from "@/lib/toast";
 import { motion } from "framer-motion";
 import { FiMapPin, FiPhoneCall, FiClock, FiNavigation } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
@@ -11,11 +11,16 @@ import Button from "@/components/ui/Button";
 import { contactSchema } from "@/lib/validation";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
-const STORE_ADDRESS = "Tirunelveli, Tamil Nadu, India";
-const GOOGLE_MAPS_DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=" +
-  encodeURIComponent(STORE_ADDRESS);
-const GOOGLE_MAPS_EMBED =
-  "https://www.google.com/maps?q=" + encodeURIComponent(STORE_ADDRESS) + "&output=embed";
+const STORE_ADDRESS =
+  "Pulikiyil Building, Kurisupally Junction, Marangattupilly, Pala, Kottayam – 686635";
+// Exact store coordinates: 9°44'27.9"N 76°36'50.0"E
+const STORE_LAT = 9.741083;
+const STORE_LNG = 76.613889;
+const STORE_LATLNG = `${STORE_LAT},${STORE_LNG}`;
+
+const GOOGLE_MAPS_VIEW = `https://www.google.com/maps?q=${STORE_LATLNG}`;
+const GOOGLE_MAPS_DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${STORE_LATLNG}`;
+const GOOGLE_MAPS_EMBED = `https://www.google.com/maps?q=${STORE_LATLNG}&z=16&output=embed`;
 
 const infoTiles = [
   { icon: <FiMapPin size={18} />, title: "Store Location", desc: "Visit us or book a doorstep pickup" },
@@ -85,7 +90,7 @@ export default function ContactSection() {
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <Button as="a" href="tel:+919585558007" size="sm" variant="ghost">
+              <Button as="a" href="tel:+918606171401" size="sm" variant="ghost">
                 📞 Call Now
               </Button>
               <Button
@@ -147,10 +152,10 @@ export default function ContactSection() {
                     body: JSON.stringify(values),
                   });
                   if (!res.ok) throw new Error("Request failed");
-                  toast.success("Message sent! We'll reply soon.");
+                  notifySuccess("Message sent! We'll reply soon.");
                   resetForm();
                 } catch {
-                  toast.error("Something went wrong. Please try WhatsApp instead.");
+                  notifyError("Something went wrong. Please try WhatsApp instead.");
                 } finally {
                   setSubmitting(false);
                 }
@@ -190,15 +195,22 @@ export default function ContactSection() {
             </Formik>
           </div>
 
-          <div className="relative rounded-3xl overflow-hidden bg-ink text-white p-8 aspect-[4/3] flex flex-col justify-end">
+          <a
+            href={GOOGLE_MAPS_VIEW}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative rounded-3xl overflow-hidden bg-ink text-white p-8 aspect-[4/3] flex flex-col justify-end"
+          >
             <div className="absolute inset-0 dot-grid opacity-30" />
             <div className="relative">
               <p className="text-4xl mb-2">📍</p>
               <p className="font-display text-2xl">WASH DAY</p>
               <p className="text-white/60 text-sm">Premium Laundry · {STORE_ADDRESS}</p>
-              <p className="text-white/40 text-xs mt-1">Find us on Google Maps</p>
+              <p className="text-accent text-xs mt-1 font-semibold group-hover:underline">
+                Find us on Google Maps →
+              </p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

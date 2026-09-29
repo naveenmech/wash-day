@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 export default function ToastProvider() {
   return (
     <Toaster
-      position="bottom-center"
+      position="top-center"
       toastOptions={{
         style: {
           background: "#1a1a1a",
@@ -13,7 +13,8 @@ export default function ToastProvider() {
           fontFamily: "var(--font-dmsans)",
           fontSize: "14px",
         },
-        success: { iconTheme: { primary: "#e53935", secondary: "#fff" } },
+        success: { iconTheme: { primary: "#22c55e", secondary: "#fff" } },
+        error: { iconTheme: { primary: "#e53935", secondary: "#fff" } },
       }}
     />
   );

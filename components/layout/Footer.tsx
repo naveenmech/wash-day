@@ -17,13 +17,17 @@ export default function Footer() {
           </p>
         </div>
         <div className="text-sm text-white/60 space-y-2">
-          <p className="text-white font-semibold mb-1">Tirunelveli, Tamil Nadu, India</p>
+          <p className="text-white font-semibold mb-1">
+            Pulikiyil Building, Kurisupally Junction
+            <br />
+            Marangattupilly, Pala, Kottayam – 686635
+          </p>
           <p>Mon – Sun: 9:00 AM – 8:00 PM</p>
           <p>Doorstep pickup available daily</p>
         </div>
         <div className="flex md:justify-end items-start gap-3">
           <a
-            href="tel:+919585558007"
+            href="tel:+918606171401"
             className="w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-accent transition-colors"
             aria-label="Call Now"
           >
